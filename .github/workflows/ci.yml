@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "zero-trust-mcp/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - "zero-trust-mcp/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package with dev dependencies
+        working-directory: zero-trust-mcp
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Lint with ruff
+        working-directory: zero-trust-mcp
+        run: |
+          ruff check src/ tests/ examples/
+          ruff format --check src/ tests/ examples/
+
+      - name: Run tests with pytest
+        working-directory: zero-trust-mcp
+        run: |
+          pytest tests/ -v --tb=short
+
+      - name: Check types with mypy
+        working-directory: zero-trust-mcp
+        run: |
+          mypy src/zero_trust_mcp --ignore-missing-imports || true

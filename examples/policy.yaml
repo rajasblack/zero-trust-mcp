@@ -1,0 +1,41 @@
+policy_id: customer_support_policy
+version: "1.0"
+default: deny
+
+allow_rules:
+  - tool: search
+    constraints:
+      query:
+        type: string
+        description: "Search query"
+    description: "Allow searches with any query"
+
+  - tool: get_user
+    constraints:
+      user_id:
+        type: string
+        pattern: "^EMP[0-9]{6}$"
+        description: "Must be valid employee ID"
+    description: "Allow getting user data for valid employee IDs"
+
+  - tool: create_ticket
+    constraints:
+      priority:
+        type: string
+        enum: ["LOW", "MEDIUM", "HIGH"]
+        description: "Must be LOW, MEDIUM, or HIGH"
+      customer_id:
+        type: string
+        description: "Customer identifier"
+    description: "Allow creating tickets with valid priority levels"
+
+deny_rules:
+  - tool: delete_user
+    reason: "User deletion not permitted in this context"
+    description: "Prevent accidental user deletion"
+
+  - tool: create_ticket
+    condition:
+      priority: "CRITICAL"
+    reason: "CRITICAL tickets require manager approval"
+    description: "Block critical tickets without special handling"

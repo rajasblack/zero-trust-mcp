@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zero-trust-mcp"
+version = "0.1.0"
+description = "Zero Trust policy enforcement for MCP tool calls"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Maintainers", email = "dev@example.com"},
+]
+keywords = ["zero-trust", "mcp", "policy", "security", "enforcement"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "build>=0.10.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/rajasblack/zero-trust-mcp"
+"Issues" = "https://github.com/rajasblack/zero-trust-mcp/issues"
+
+[tool.setuptools]
+packages = ["zero_trust_mcp"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.package-data]
+zero_trust_mcp = ["py.typed"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+lint.select = ["E", "F", "W", "I", "N", "UP"]
+lint.ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["zero_trust_mcp"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
