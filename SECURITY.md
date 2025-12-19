@@ -4,10 +4,7 @@
 
 **Please do not open public GitHub issues for security vulnerabilities.**
 
-If you discover a security vulnerability in Zero Trust MCP, please email us at:
-```
-security@example.com
-```
+If you discover a security vulnerability in Zero Trust MCP, please contact me.
 
 Include:
 - Description of the vulnerability
