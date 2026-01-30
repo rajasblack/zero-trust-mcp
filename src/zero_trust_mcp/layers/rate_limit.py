@@ -9,7 +9,9 @@ from ..policy.schema import RateLimitConfig
 from ..rate_limit import InMemoryRateLimiter
 
 
-def rate_limit_layer(policy_id: str, cfg: RateLimitConfig | None, limiter: InMemoryRateLimiter | None = None):
+def rate_limit_layer(
+    policy_id: str, cfg: RateLimitConfig | None, limiter: InMemoryRateLimiter | None = None
+):
     limiter = limiter or InMemoryRateLimiter()
 
     def _key(ctx: CallContext) -> str:

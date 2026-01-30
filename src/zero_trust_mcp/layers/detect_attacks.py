@@ -32,7 +32,9 @@ def detect_attacks_layer(policy_id: str, cfg: DetectAttacksConfig | None):
         fields = set(cfg.fields or [])
         haystacks = list(_collect_strings(ctx.tool_call.arguments or {}, fields))
 
-        suspicious = any(SQLI_RE.search(s) or TRAVERSAL_RE.search(s) or SSRF_RE.search(s) for s in haystacks)
+        suspicious = any(
+            SQLI_RE.search(s) or TRAVERSAL_RE.search(s) or SSRF_RE.search(s) for s in haystacks
+        )
 
         if suspicious and cfg.on_detect == "deny":
             decision = Decision(

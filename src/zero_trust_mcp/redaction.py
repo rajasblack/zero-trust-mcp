@@ -41,11 +41,26 @@ def redact_value(
         return value
 
     if isinstance(value, list):
-        return [redact_value(v, deny_keys=deny_keys, pii_emails=pii_emails, pii_phones=pii_phones, max_string_len=max_string_len) for v in value]
+        return [
+            redact_value(
+                v,
+                deny_keys=deny_keys,
+                pii_emails=pii_emails,
+                pii_phones=pii_phones,
+                max_string_len=max_string_len,
+            )
+            for v in value
+        ]
 
     if isinstance(value, tuple):
         return tuple(
-            redact_value(v, deny_keys=deny_keys, pii_emails=pii_emails, pii_phones=pii_phones, max_string_len=max_string_len)
+            redact_value(
+                v,
+                deny_keys=deny_keys,
+                pii_emails=pii_emails,
+                pii_phones=pii_phones,
+                max_string_len=max_string_len,
+            )
             for v in value
         )
 

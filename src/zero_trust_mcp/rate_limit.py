@@ -39,7 +39,9 @@ class InMemoryRateLimiter:
 
         b = self._buckets.get(key)
         if b is None:
-            b = TokenBucket(capacity=cap, refill_per_sec=refill_per_sec, tokens=float(cap), last_ts=time.time())
+            b = TokenBucket(
+                capacity=cap, refill_per_sec=refill_per_sec, tokens=float(cap), last_ts=time.time()
+            )
             self._buckets[key] = b
 
         ok, remaining = b.take(1)

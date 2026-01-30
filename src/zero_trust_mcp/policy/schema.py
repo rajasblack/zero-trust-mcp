@@ -102,7 +102,9 @@ class RateLimitConfig(BaseModel):
     """Rate limiting configuration."""
 
     enabled: bool = Field(default=True, description="Whether rate limiting is enabled")
-    scope: str = Field(default="actor", description="Scope: global, actor, session, tool, or actor+tool")
+    scope: str = Field(
+        default="actor", description="Scope: global, actor, session, tool, or actor+tool"
+    )
     limit_per_minute: int = Field(default=60, description="Limit per minute")
     burst: int | None = Field(None, description="Burst limit")
 
@@ -136,6 +138,8 @@ class AuditConfig(BaseModel):
 
     enabled: bool = Field(default=True, description="Whether audit logging is enabled")
     include_result: bool = Field(default=False, description="Include tool result in logs")
-    include_argument_values: bool = Field(default=False, description="Include argument values in logs")
+    include_argument_values: bool = Field(
+        default=False, description="Include argument values in logs"
+    )
 
     model_config = {"extra": "allow"}
