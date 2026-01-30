@@ -8,6 +8,8 @@ This example demonstrates:
 4. Handling policy denials
 """
 
+from pathlib import Path
+
 from zero_trust_mcp import Enforcer, PolicyEngine, ToolCall
 from zero_trust_mcp.audit import get_audit_logger
 
@@ -44,8 +46,9 @@ def delete_user(user_id: str) -> dict:
 
 def main() -> None:
     """Run the demo."""
-    # Load policy
-    engine = PolicyEngine.from_file("policy.yaml")
+    # Load policy from the same directory as this script
+    policy_path = Path(__file__).parent / "policy.yaml"
+    engine = PolicyEngine.from_file(policy_path)
     logger = get_audit_logger()
 
     # Create enforcer

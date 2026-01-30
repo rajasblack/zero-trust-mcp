@@ -10,6 +10,13 @@ allow_rules:
         description: "Search query"
     description: "Allow searches with any query"
 
+  - tool: hello
+    constraints:
+      name:
+        type: string
+        description: "Name to greet"
+    description: "Allow hello function with any name"
+
   - tool: get_user
     constraints:
       user_id:
