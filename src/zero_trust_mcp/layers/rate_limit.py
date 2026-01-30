@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from ..decisions import Decision, PolicyDeniedError
 from ..pipeline.context import CallContext
@@ -30,7 +31,7 @@ def rate_limit_layer(policy_id: str, cfg: RateLimitConfig | None, limiter: InMem
         if cfg is None or not cfg.enabled or not cfg.limit_per_minute:
             return nxt()
 
-        ok, meta = limiter.allow(_key(ctx), cfg.limit_per_minute, cfg.burst)
+        ok, meta = limiter.allow(_key(ctx), cfg.limit_per_minute, cfg.burst or 0)
         ctx.meta["rate_limit"] = meta
         if not ok:
             decision = Decision(

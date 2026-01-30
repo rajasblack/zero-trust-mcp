@@ -49,9 +49,6 @@ class Enforcer:
         # Evaluate policy
         decision = self.engine.evaluate(tool_call)
 
-        # Extract argument keys for safe logging
-        argument_keys = list(tool_call.arguments.keys())
-
         if not decision.allowed:
             # Log denial
             self.logger.log(
@@ -62,7 +59,8 @@ class Enforcer:
                 policy_id=decision.policy_id,
                 actor=tool_call.actor,
                 request_id=tool_call.request_id,
-                arguments_keys=argument_keys,
+                arguments=tool_call.arguments,
+                layer="enforce",
             )
             # Raise exception
             raise PolicyDeniedError(decision)
@@ -76,7 +74,8 @@ class Enforcer:
             policy_id=decision.policy_id,
             actor=tool_call.actor,
             request_id=tool_call.request_id,
-            arguments_keys=argument_keys,
+            arguments=tool_call.arguments,
+            layer="enforce",
         )
 
         # Call tool function

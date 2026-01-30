@@ -88,3 +88,54 @@ class PolicySchema(BaseModel):
     deny_rules: list[DenyRule] | None = Field(default_factory=list, description="Deny rules")
 
     model_config = {"extra": "allow"}
+
+
+class ValidateConfig(BaseModel):
+    """Validation configuration."""
+
+    max_arg_bytes: int | None = Field(None, description="Maximum size of arguments in bytes")
+
+    model_config = {"extra": "allow"}
+
+
+class RateLimitConfig(BaseModel):
+    """Rate limiting configuration."""
+
+    enabled: bool = Field(default=True, description="Whether rate limiting is enabled")
+    scope: str = Field(default="actor", description="Scope: global, actor, session, tool, or actor+tool")
+    limit_per_minute: int = Field(default=60, description="Limit per minute")
+    burst: int | None = Field(None, description="Burst limit")
+
+    model_config = {"extra": "allow"}
+
+
+class RedactConfig(BaseModel):
+    """Redaction configuration."""
+
+    enabled: bool = Field(default=True, description="Whether redaction is enabled")
+    deny_keys: list[str] | None = Field(None, description="Keys to deny in results")
+    pii_emails: bool = Field(default=False, description="Redact email addresses")
+    pii_phones: bool = Field(default=False, description="Redact phone numbers")
+    max_string_len: int | None = Field(None, description="Maximum string length before truncation")
+
+    model_config = {"extra": "allow"}
+
+
+class DetectAttacksConfig(BaseModel):
+    """Attack detection configuration."""
+
+    enabled: bool = Field(default=True, description="Whether attack detection is enabled")
+    fields: list[str] | None = Field(None, description="Fields to check for attacks")
+    on_detect: str = Field(default="deny", description="Action on detection: deny or warn")
+
+    model_config = {"extra": "allow"}
+
+
+class AuditConfig(BaseModel):
+    """Audit logging configuration."""
+
+    enabled: bool = Field(default=True, description="Whether audit logging is enabled")
+    include_result: bool = Field(default=False, description="Include tool result in logs")
+    include_argument_values: bool = Field(default=False, description="Include argument values in logs")
+
+    model_config = {"extra": "allow"}

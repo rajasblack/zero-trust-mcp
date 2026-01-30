@@ -32,7 +32,13 @@ class AuditLogger:
         policy_id: str,
         actor: str | None = None,
         request_id: str | None = None,
-        arguments_keys: list[str] | None = None,
+        arguments: dict[str, Any] | None = None,
+        layer: str | None = None,
+        latency_ms: float | None = None,
+        client: dict[str, Any] | None = None,
+        result: Any = None,
+        include_result: bool = False,
+        include_argument_values: bool = False,
     ) -> None:
         """
         Log a policy decision.
@@ -45,7 +51,13 @@ class AuditLogger:
             policy_id: Policy ID that made the decision
             actor: Optional actor (e.g., user email)
             request_id: Optional request ID
-            arguments_keys: Optional list of argument keys (never values)
+            arguments: Optional arguments dict
+            layer: Optional layer that made the decision
+            latency_ms: Optional latency in milliseconds
+            client: Optional client info dict
+            result: Optional tool result
+            include_result: Whether to include result in log
+            include_argument_values: Whether to include argument values
         """
         log_entry = {
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -62,11 +74,28 @@ class AuditLogger:
         if request_id:
             log_entry["request_id"] = request_id
 
-        if arguments_keys:
+        if layer:
+            log_entry["layer"] = layer
+
+        if latency_ms is not None:
+            log_entry["latency_ms"] = latency_ms
+
+        if client:
+            log_entry["client"] = client
+
+        if include_argument_values and arguments:
+            log_entry["arguments"] = self.redact_dict(arguments)
+        elif arguments:
             log_entry["arguments_summary"] = {
-                "keys": arguments_keys,
-                "key_count": len(arguments_keys),
+                "keys": list(arguments.keys()),
+                "key_count": len(arguments),
             }
+
+        if include_result and result is not None:
+            if isinstance(result, dict):
+                log_entry["result"] = self.redact_dict(result)
+            else:
+                log_entry["result"] = str(result)
 
         # Log as JSON
         self.logger.info(json.dumps(log_entry))

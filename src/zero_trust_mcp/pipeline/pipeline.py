@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import time
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from ..models import ToolCall
 from ..policy.engine import PolicyEngine
@@ -27,8 +28,8 @@ class Pipeline:
         for layer in reversed(self.layers):
             prev = nxt
 
-            def make_next(l: LayerFunc, p: Callable[[], Any]) -> Callable[[], Any]:
-                return lambda: l(ctx, p)
+            def make_next(layer_func: LayerFunc, prev_nxt: Callable[[], Any]) -> Callable[[], Any]:
+                return lambda: layer_func(ctx, prev_nxt)
 
             nxt = make_next(layer, prev)
 
