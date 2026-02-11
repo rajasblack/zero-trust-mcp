@@ -1,4 +1,4 @@
----
+
 title: "zero-trust-mcp: A Policy Engine for Secure Tool Invocation in Agent Workflows"\
 
 tags:
@@ -14,7 +14,6 @@ authors:
     email: rajeshkumar.sampathkumar@nttdata.com\
 date: 2026-02-11\
 bibliography: paper.bib
----
 
 # Summary
 
