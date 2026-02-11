@@ -1,5 +1,5 @@
 ---
-title: "<b>zero-trust-mcp</b>: A Policy Engine for Secure Tool Invocation in Agent Workflows"\
+title: "zero-trust-mcp: A Policy Engine for Secure Tool Invocation in Agent Workflows"\
 
 tags:
   - zero-trust
@@ -21,6 +21,8 @@ bibliography: paper.bib
 `zero-trust-mcp` is a lightweight Python library for enforcing zero-trust security policies on tool calls in agent and Model Context Protocol (MCP) workflows. As large language model (LLM) systems increasingly invoke external tools, structured policy enforcement becomes necessary to prevent unintended privilege escalation, unsafe argument handling, and data misuse.
 
 The library provides a declarative policy engine that evaluates tool calls against explicit allow and deny rules, validates argument constraints, and produces structured security decisions. An enforcement wrapper enables developers to apply these controls transparently around existing tool functions.
+
+The archived release of the software is available via Zenodo @zero_trust_mcp_zenodo.
 
 # Statement of Need
 
@@ -79,4 +81,4 @@ result = enforcer.enforce(call, get_user)
 
 # Acknowledgements
 
-This work was motivated by ongoing discussions in the <b>AI security</b> and zero-trust communities regarding safe agent-tool interaction.
+This work was motivated by ongoing discussions in the AI security and zero-trust communities regarding safe agent-tool interaction.
