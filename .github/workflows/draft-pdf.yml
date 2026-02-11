@@ -11,22 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Build JOSS draft PDF
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Build draft PDF
-        # use released version instead of master branch
-        uses: openjournals/openjournals-draft-action@v1
+        uses: openjournals/openjournals-draft-action@v0.1.4
         with:
           journal: joss
-          # path relative to repo root: paper/paper.md
           paper-path: paper/paper.md
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
-          # Pandoc will write the compiled PDF next to paper.md by default
           path: paper/paper.pdf
