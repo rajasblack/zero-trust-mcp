@@ -1,18 +1,18 @@
 
-title: "zero-trust-mcp: A Policy Engine for Secure Tool Invocation in Agent Workflows"\
+title: "zero-trust-mcp: A Policy Engine for Secure Tool Invocation in Agent Workflows"
 
 tags:
   - zero-trust
   - policy enforcement
   - model context protocol
   - agent security
-  - tool invocation\
+  - tool invocation
 
 authors:
-  - name: Rajesh Kumar Sampath Kumar\
+  - name: Rajesh Kumar Sampath Kumar
     affiliation: "Independent Researcher"
-    email: rajeshkumar.sampathkumar@nttdata.com\
-date: 2026-02-11\
+    email: rajeshkumar.sampathkumar@nttdata.com
+date: 2026-02-11
 bibliography: paper.bib
 
 # Summary
