@@ -480,7 +480,7 @@ Contributions welcome! Please:
 If you use this work, please cite:
 
 Rajesh Kumar Sampath Kumar (2026).  
-Zero-Trust MCP Gateway (v0.1.4).
+Zero-Trust MCP (v0.1.4).
 [![DOI](https://zenodo.org/badge/1119736858.svg)](https://doi.org/10.5281/zenodo.18614628)
 Zenodo. https://doi.org/10.5281/zenodo.18614628
 
