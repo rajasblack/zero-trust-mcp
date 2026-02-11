@@ -467,6 +467,10 @@ ruff check src/ tests/ examples/
 ruff format src/ tests/ examples/
 ```
 
+## Security Considerations
+
+zero-trust-mcp enforces policy-based validation and authorization at the tool invocation boundary. It does not replace downstream system hardening, authentication, or network controls. Users should ensure that external tools implement appropriate security practices independently of this library.
+
 ## Contributing
 
 Contributions welcome! Please:
